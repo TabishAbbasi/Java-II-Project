@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="500.0" prefWidth="800.0">
+         <children>
+            <Label layoutX="30.0" layoutY="30.0" text="Appointment ID" />
+            <TextField fx:id="idTextBox" disable="true" layoutX="130.0" layoutY="26.0" />
+            <Label layoutX="92.0" layoutY="80.0" text="Title" />
+            <TextField fx:id="titleTextBox" layoutX="130.0" layoutY="76.0" />
+            <Label layoutX="70.0" layoutY="130.0" text="Location" />
+            <TextField fx:id="locTextBox" layoutX="130.0" layoutY="126.0" />
+            <Label layoutX="90.0" layoutY="180.0" text="Type" />
+            <TextField fx:id="typeTextBox" layoutX="130.0" layoutY="176.0" />
+            <Label layoutX="310.0" layoutY="30.0" text="Description" />
+            <TextArea fx:id="descTextArea" layoutX="380.0" layoutY="26.0" prefHeight="175.0" prefWidth="400.0" />
+            <Label layoutX="73.0" layoutY="230.0" text="Contact" />
+            <ComboBox fx:id="conComBox" layoutX="130.0" layoutY="226.0" prefWidth="150.0" />
+            <Label layoutX="50.0" layoutY="280.0" text="Customer ID" />
+            <ComboBox fx:id="cusComBox" layoutX="130.0" layoutY="276.0" prefWidth="150.0" />
+            <Label layoutX="78.0" layoutY="330.0" text="User ID" />
+            <ComboBox fx:id="userComBox" layoutX="130.0" layoutY="326.0" prefWidth="150.0" />
+            <Label layoutX="340.0" layoutY="230.0" text="Date" />
+            <DatePicker fx:id="datePicker" layoutX="380.0" layoutY="226.0" />
+            <Label layoutX="310.0" layoutY="280.0" text="Start Time" />
+            <ComboBox fx:id="startComBox" layoutX="380.0" layoutY="276.0" prefWidth="150.0" />
+            <Label layoutX="315.0" layoutY="330.0" text="End Time" />
+            <ComboBox fx:id="endComBox" layoutX="380.0" layoutY="326.0" prefWidth="150.0" />
+            <Button layoutX="320.0" layoutY="400.0" mnemonicParsing="false" text="Save" />
+            <Button layoutX="400.0" layoutY="400.0" mnemonicParsing="false" text="Cancel" />
+         </children>
+      </Pane>
+   </children>
+</VBox>

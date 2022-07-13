@@ -10,7 +10,7 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class LoginFormController {
+public class LoginController {
     @FXML
     private Text titleText;
     @FXML
