@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.PasswordField?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginFormController">
    <children>
       <Pane prefHeight="510.0" prefWidth="600.0">
@@ -15,7 +16,7 @@
             <Label fx:id="idLabel" layoutX="136.0" layoutY="150.0" text="username" />
             <TextField fx:id="idTextBox" layoutX="195.0" layoutY="146.0" prefWidth="200.0" />
             <Label fx:id="passwordLabel" layoutX="136.0" layoutY="192.0" text="password" />
-            <TextField fx:id="passwordTextBox" layoutX="195.0" layoutY="188.0" prefWidth="200.0" />
+            <PasswordField fx:id="passwordTextBox" layoutX="195.0" layoutY="188.0" prefWidth="200.0" />
             <Button fx:id="loginBtn" layoutX="350.0" layoutY="230.0" mnemonicParsing="false" text="Login" onAction="#onLogin"/>
             <Label fx:id="zoneLabel" layoutX="71.0" layoutY="355.0" text="ZoneId" />
          </children>

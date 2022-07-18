@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -30,7 +31,7 @@ public class LoginFormController {
     @FXML
     private Label passwordLabel;
     @FXML
-    private TextField passwordTextBox;
+    private PasswordField passwordTextBox;
     @FXML
     private Button loginBtn;
     @FXML
@@ -75,7 +76,7 @@ public class LoginFormController {
                 if(Locale.getDefault().getLanguage().equals("fr")){
                     AlertGenerator.generateErrorAlert("Le pseudo ou mot de passe est incorect.");
                 }else {
-                    AlertGenerator.generateErrorAlert("All fields must be filled!");
+                    AlertGenerator.generateErrorAlert("Username or password is incorrect.");
                 }
 
             }

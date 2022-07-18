@@ -102,6 +102,8 @@ public class CustomerFormController {
 
             if(choice.isPresent() && choice.get() == ButtonType.OK){
                 CustomerQuery.deleteCustomer(removeCustomer.getId());
+                CustomerQuery.retrieveAllCustomers(customerList);
+                customerTable.setItems(customerList);
                 AlertGenerator.generateInfoAlert(removeCustomer.getName() + " has been removed.");
             }
 

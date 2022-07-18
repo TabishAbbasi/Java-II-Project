@@ -15,13 +15,13 @@
       <Pane prefHeight="400.0" prefWidth="1600.0">
          <children>
             <Text layoutX="10.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Appointments" />
-            <RadioButton layoutX="150.0" layoutY="8.0" mnemonicParsing="false" selected="true" text="All">
+            <RadioButton layoutX="150.0" layoutY="8.0" mnemonicParsing="false" selected="true" text="All" onAction="#showAllAppointments">
                <toggleGroup>
                   <ToggleGroup fx:id="toggleGroup" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton layoutX="210.0" layoutY="8.0" mnemonicParsing="false" text="Current Month" toggleGroup="$toggleGroup" />
-            <RadioButton layoutX="330.0" layoutY="8.0" mnemonicParsing="false" text="Current Week" toggleGroup="$toggleGroup" />
+            <RadioButton layoutX="210.0" layoutY="8.0" mnemonicParsing="false" text="Current Month" toggleGroup="$toggleGroup" onAction="#showMonthAppointments"/>
+            <RadioButton layoutX="330.0" layoutY="8.0" mnemonicParsing="false" text="Current Week" toggleGroup="$toggleGroup" onAction="#showWeekAppointments"/>
             <TableView fx:id="appointmentTable" layoutY="30.0" prefHeight="288.0" prefWidth="1600.0">
                <columns>
                   <TableColumn fx:id="appIdCol" minWidth="100.0" prefWidth="100.0" text="Appointment ID" />

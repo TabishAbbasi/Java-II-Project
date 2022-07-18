@@ -36,7 +36,7 @@ public class AppointmentsQuery {
 
     public static void retrieveAllAppointmentsById(int searchId, ObservableList<Appointment> appointmentList) throws SQLException {
         appointmentList.clear();
-        String sql = "SELECT FROM APPOINTMENTS WHERE Customer_ID = ?";
+        String sql = "SELECT * FROM APPOINTMENTS WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setInt(1, searchId);
         ResultSet rs = ps.executeQuery();
@@ -82,8 +82,8 @@ public class AppointmentsQuery {
 
     public static void updateAppointment(int appId, String title, String description, String location, String type, LocalDateTime startDateTime,
                                          LocalDateTime endDateTime, User user, int customerId, int contactId) throws SQLException {
-        String sql = "UPDATE APPOINTMENTS SET Title = ? Description = ? Location = ? Type = ? Start = ? End = ? " +
-                "Last_Update = ? Last_Updated_By = ? Customer_ID = ? User_ID = ? Contact_ID = ? WHERE Appointment_ID = ?";
+        String sql = "UPDATE APPOINTMENTS SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
+                "Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setString(1, title);
         ps.setString(2, description);

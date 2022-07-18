@@ -63,7 +63,7 @@ public class UpdateAppointmentFormController {
         titleTextBox.setText(appointment.getTitle());
         locTextBox.setText(appointment.getLocation());
         typeTextBox.setText(appointment.getType());
-        descTextArea.setText(appointment.getType());
+        descTextArea.setText(appointment.getDescription());
         datePicker.setValue(appointment.getDate());
 
         ContactsQuery.retrieveAllContacts(contactList);
@@ -135,7 +135,7 @@ public class UpdateAppointmentFormController {
                 AlertGenerator.generateErrorAlert("Appointment start time and end times cannot be the same.");
 
             } else if(startTime.isAfter(endTime)) {
-                AlertGenerator.generateErrorAlert("Appointment start time cannot must occur before the end time.");
+                AlertGenerator.generateErrorAlert("Appointment start time cannot occur before the end time.");
 
             } else if(!checkForOverlap(startTime, endTime)){
                 AlertGenerator.generateErrorAlert("The timing of this appointment overlaps with another appointment.");

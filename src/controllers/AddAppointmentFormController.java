@@ -120,7 +120,7 @@ public class AddAppointmentFormController {
                 AlertGenerator.generateErrorAlert("Appointment start time and end times cannot be the same.");
 
             } else if(startTime.isAfter(endTime)) {
-                AlertGenerator.generateErrorAlert("Appointment start time cannot must occur before the end time.");
+                AlertGenerator.generateErrorAlert("Appointment start time cannot occur before the end time.");
 
             } else if(!checkForOverlap(startTime, endTime)){
                 AlertGenerator.generateErrorAlert("The timing of this appointment overlaps with another appointment.");

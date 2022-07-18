@@ -46,10 +46,11 @@ public abstract class UsersQuery {
     }
 
     public static User retrieveUserById(int userId) throws SQLException {
-        String sql = "SELECT FROM USERS WHERE User_ID = ?";
+        String sql = "SELECT * FROM USERS WHERE User_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setInt(1, userId);
         ResultSet rs = ps.executeQuery();
+        rs.next();
         int id = rs.getInt("User_ID");
         String userName = rs.getString("User_Name");
         User user = new User(id, userName);

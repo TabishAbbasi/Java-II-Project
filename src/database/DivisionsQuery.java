@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class DivisionsQuery {
     public static void retrieveDivisionsByCountryId(int countryId, ObservableList<Division> divisionList) throws SQLException {
         divisionList.clear();
-        String sql = "SELECT FROM FIRST-LEVEL DIVISIONS WHERE Country_ID = ?";
+        String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE Country_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setInt(1, countryId);
         ResultSet rs = ps.executeQuery();
@@ -22,19 +22,21 @@ public class DivisionsQuery {
     }
 
     public static Division retrieveDivisionById(int divisionId) throws SQLException {
-        String sql = "SELECT FROM FIRST-LEVEL DIVISIONS WHERE Division_ID = ?";
+        String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE Division_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setInt(1, divisionId);
         ResultSet rs = ps.executeQuery();
+        rs.next();
         Division division = new Division(divisionId, rs.getString("Division"));
         return division;
     }
 
     public static int retrieveDivisionCountryId(int divisionId) throws SQLException {
-        String sql = "SELECT FROM FIRST-LEVEL DIVISIONS WHERE Division_ID = ?";
+        String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE Division_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setInt(1, divisionId);
         ResultSet rs = ps.executeQuery();
+        rs.next();
         int countryId = rs.getInt("Country_ID");
         return countryId;
     }

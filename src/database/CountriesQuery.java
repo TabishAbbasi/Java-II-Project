@@ -21,10 +21,11 @@ public class CountriesQuery {
     }
 
     public static Country retrieveCountryObject(int countryId) throws SQLException {
-        String sql = "SELECT FROM COUNTRIES WHERE Country_ID = ?";
+        String sql = "SELECT * FROM COUNTRIES WHERE Country_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setInt(1, countryId);
         ResultSet rs = ps.executeQuery();
+        rs.next();
         Country country = new Country(countryId, rs.getString("Country"));
         return country;
     }

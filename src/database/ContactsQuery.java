@@ -22,19 +22,21 @@ public class ContactsQuery {
     }
 
     public static Contact retrieveContactByName(String contactName) throws SQLException {
-        String sql = "SELECT FROM CONTACTS WHERE Contact_Name = ?";
+        String sql = "SELECT * FROM CONTACTS WHERE Contact_Name = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setString(1, contactName);
         ResultSet rs = ps.executeQuery();
+        rs.next();
         Contact contact = new Contact(rs.getInt("Contact_ID"), rs.getString("Contact_Name"), rs.getString("Email"));
         return contact;
     }
 
     public static String retrieveContactName(int id) throws SQLException {
-        String sql = "SELECT FROM CONTACTS WHERE Contact_ID = ?";
+        String sql = "SELECT * FROM CONTACTS WHERE Contact_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
+        rs.next();
         return rs.getString("Contact_Name");
     }
 }

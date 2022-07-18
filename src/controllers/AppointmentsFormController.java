@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.IsoFields;
 import java.util.Optional;
 
 public class AppointmentsFormController {
@@ -75,6 +76,37 @@ public class AppointmentsFormController {
         appUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
     }
 
+    public void showAllAppointments(ActionEvent event) throws SQLException {
+        AppointmentsQuery.retrieveAllAppointments(appointmentList);
+        appointmentTable.setItems(appointmentList);
+    }
+
+    public void showMonthAppointments(ActionEvent event) throws SQLException {
+        AppointmentsQuery.retrieveAllAppointments(appointmentList);
+        LocalDate localDate = LocalDate.now();
+        ObservableList<Appointment> filteredAppList = FXCollections.observableArrayList();
+        for(Appointment currApp : appointmentList){
+            if(localDate.getMonth() == currApp.getDate().getMonth()){
+                filteredAppList.add(currApp);
+            }
+        }
+        appointmentTable.setItems(filteredAppList);
+    }
+
+    public void showWeekAppointments(ActionEvent event) throws SQLException {
+        AppointmentsQuery.retrieveAllAppointments(appointmentList);
+        int weekNumber = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+
+        ObservableList<Appointment> filteredAppList = FXCollections.observableArrayList();
+        for(Appointment currApp : appointmentList){
+            int appWeekNumber = currApp.getDate().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+            if(weekNumber == appWeekNumber){
+                filteredAppList.add(currApp);
+            }
+        }
+        appointmentTable.setItems(filteredAppList);
+    }
+
     public void addAppointment(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AddAppointmentForm.fxml"))), 800, 500));
@@ -109,6 +141,8 @@ public class AppointmentsFormController {
 
             if(choice.isPresent() && choice.get() == ButtonType.OK){
                 AppointmentsQuery.deleteAppointment(deleteAppointment.getId());
+                AppointmentsQuery.retrieveAllAppointments(appointmentList);
+                appointmentTable.setItems(appointmentList);
                 AlertGenerator.generateInfoAlert("Appointment ID: " + deleteAppointment.getId() + " has been removed.");
             }
 

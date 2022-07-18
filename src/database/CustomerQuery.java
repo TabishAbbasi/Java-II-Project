@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 public abstract class CustomerQuery {
     public static void retrieveAllCustomers(ObservableList<Customer> customerList) throws SQLException {
+        customerList.clear();
         String sql = "SELECT * FROM CUSTOMERS";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -27,10 +28,11 @@ public abstract class CustomerQuery {
     }
 
     public static Customer retrieveCustomerById(int customerId) throws SQLException {
-        String sql = "SELECT FROM CUSTOMERS WHERE Customer_ID = ?";
+        String sql = "SELECT * FROM CUSTOMERS WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setInt(1, customerId);
         ResultSet rs = ps.executeQuery();
+        rs.next();
         int id = rs.getInt("Customer_ID");
         String name = rs.getString("Customer_Name");
         String address = rs.getString("Address");
@@ -59,8 +61,8 @@ public abstract class CustomerQuery {
     }
 
     public static void updateCustomer(int customerId, String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
-        String sql = "UPDATE CUSTOMERS SET Customer_Name = ? Address = ? Postal_Code = ? Phone = ? " +
-                    "Last_Update = ? Last_Updated_By = ? Division_ID = ? WHERE Customer_ID = ?";
+        String sql = "UPDATE CUSTOMERS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, " +
+                    "Last_Update = ?, Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
         ps.setString(1, name);
         ps.setString(2, address);
