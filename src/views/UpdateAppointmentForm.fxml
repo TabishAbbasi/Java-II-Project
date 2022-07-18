@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0"
+      xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UpdateAppointmentFormController">
    <children>
       <Pane prefHeight="500.0" prefWidth="800.0">
          <children>
@@ -35,8 +36,8 @@
             <ComboBox fx:id="startComBox" layoutX="380.0" layoutY="276.0" prefWidth="150.0" />
             <Label layoutX="315.0" layoutY="330.0" text="End Time" />
             <ComboBox fx:id="endComBox" layoutX="380.0" layoutY="326.0" prefWidth="150.0" />
-            <Button layoutX="320.0" layoutY="400.0" mnemonicParsing="false" text="Save" />
-            <Button layoutX="400.0" layoutY="400.0" mnemonicParsing="false" text="Cancel" />
+            <Button layoutX="320.0" layoutY="400.0" mnemonicParsing="false" text="Save" onAction="#onSave"/>
+            <Button layoutX="400.0" layoutY="400.0" mnemonicParsing="false" text="Cancel" onAction="#toAppointmentForm"/>
          </children>
       </Pane>
    </children>
