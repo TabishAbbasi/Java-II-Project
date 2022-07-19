@@ -4,6 +4,7 @@ import database.AppointmentsQuery;
 import database.UsersQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -83,28 +84,30 @@ public class AppointmentsFormController {
 
     public void showMonthAppointments(ActionEvent event) throws SQLException {
         AppointmentsQuery.retrieveAllAppointments(appointmentList);
-        LocalDate localDate = LocalDate.now();
-        ObservableList<Appointment> filteredAppList = FXCollections.observableArrayList();
-        for(Appointment currApp : appointmentList){
-            if(localDate.getMonth() == currApp.getDate().getMonth()){
-                filteredAppList.add(currApp);
-            }
-        }
-        appointmentTable.setItems(filteredAppList);
+        FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, app -> app.getDate().getMonth().equals(
+                                                                                                LocalDate.now().getMonth()));
+//        LocalDate localDate = LocalDate.now();
+//        ObservableList<Appointment> filteredAppList = FXCollections.observableArrayList();
+//        for(Appointment currApp : appointmentList){
+//            if(localDate.getMonth() == currApp.getDate().getMonth()){
+//                filteredAppList.add(currApp);
+//            }
+//        }
+        appointmentTable.setItems(filteredList);
     }
 
     public void showWeekAppointments(ActionEvent event) throws SQLException {
         AppointmentsQuery.retrieveAllAppointments(appointmentList);
-        int weekNumber = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
-
-        ObservableList<Appointment> filteredAppList = FXCollections.observableArrayList();
-        for(Appointment currApp : appointmentList){
-            int appWeekNumber = currApp.getDate().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
-            if(weekNumber == appWeekNumber){
-                filteredAppList.add(currApp);
-            }
-        }
-        appointmentTable.setItems(filteredAppList);
+        int weekNumber = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR); // https://stackhowto.com/how-to-get-the-week-number-from-a-date-in-java/
+        FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, app -> weekNumber == app.getDate().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR));
+//        ObservableList<Appointment> filteredAppList = FXCollections.observableArrayList();
+//        for(Appointment currApp : appointmentList){
+//            int appWeekNumber = currApp.getDate().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+//            if(weekNumber == appWeekNumber){
+//                filteredAppList.add(currApp);
+//            }
+//        }
+        appointmentTable.setItems(filteredList);
     }
 
     public void addAppointment(ActionEvent event) throws IOException {
@@ -149,6 +152,20 @@ public class AppointmentsFormController {
         } else {
             AlertGenerator.generateErrorAlert("Please select an appointment from the table.");
         }
+    }
+
+    public void toContactSchedule(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/ContactScheduleForm.fxml"))), 1600, 400));
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    public void toAppointmentReport(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AppointmentReportForm.fxml"))), 600, 400));
+        stage.setResizable(false);
+        stage.show();
     }
 
     public void toCustomerForm(ActionEvent event) throws IOException {

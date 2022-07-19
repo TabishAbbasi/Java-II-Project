@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -43,6 +40,8 @@ public class CustomerFormController {
     private TableColumn<Customer, Integer> divIdCol;
     @FXML
     private Text currentUserText;
+    @FXML
+    private Label numOfCustomers;
 
     @FXML
     public void initialize() throws SQLException {
@@ -56,9 +55,10 @@ public class CustomerFormController {
         custPostCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         divIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+
+        numOfCustomers.setText(String.valueOf(customerList.size()));
     }
 
-    @FXML
     public void toAppointmentForm(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AppointmentForm.fxml"))), 1600, 400));
@@ -66,7 +66,6 @@ public class CustomerFormController {
         stage.show();
     }
 
-    @FXML
     public void addCustomer(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AddCustomerForm.fxml"))), 600, 400));
@@ -74,7 +73,6 @@ public class CustomerFormController {
         stage.show();
     }
 
-    @FXML
     public void updateCustomer(ActionEvent event) throws IOException, SQLException {
         if(!customerTable.getSelectionModel().isEmpty()){
             FXMLLoader loader = new FXMLLoader();
@@ -94,7 +92,6 @@ public class CustomerFormController {
         }
     }
 
-    @FXML
     public void deleteCustomer() throws SQLException {
         if(!customerTable.getSelectionModel().isEmpty()){
             Customer removeCustomer = customerTable.getSelectionModel().getSelectedItem();
@@ -104,6 +101,7 @@ public class CustomerFormController {
                 CustomerQuery.deleteCustomer(removeCustomer.getId());
                 CustomerQuery.retrieveAllCustomers(customerList);
                 customerTable.setItems(customerList);
+                numOfCustomers.setText(String.valueOf(customerList.size()));
                 AlertGenerator.generateInfoAlert(removeCustomer.getName() + " has been removed.");
             }
 
@@ -113,7 +111,6 @@ public class CustomerFormController {
 
     }
 
-    @FXML
     public void exitApplication(ActionEvent event){
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();

@@ -34,11 +34,35 @@ public class AppointmentsQuery {
         }
     }
 
-    public static void retrieveAllAppointmentsById(int searchId, ObservableList<Appointment> appointmentList) throws SQLException {
+    public static void retrieveAllAppointmentsByCustomer(int customerSearchId, ObservableList<Appointment> appointmentList) throws SQLException {
         appointmentList.clear();
         String sql = "SELECT * FROM APPOINTMENTS WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
-        ps.setInt(1, searchId);
+        ps.setInt(1, customerSearchId);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int id = rs.getInt("Appointment_ID");
+            String title = rs.getString("Title");
+            String description = rs.getString("Description");
+            String location = rs.getString("Location");
+            String type = rs.getString("Type");
+            LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
+            int customerId = rs.getInt("Customer_ID");
+            int userId = rs.getInt("User_ID");
+            int contactId = rs.getInt("Contact_ID");
+            String contactName = ContactsQuery.retrieveContactName(contactId);
+
+            appointmentList.add(new Appointment(id, title, description, location, contactName, type, startDateTime.toLocalDate(),
+                    startDateTime.toLocalTime(), endDateTime.toLocalTime(), customerId, userId));
+        }
+    }
+
+    public static void retrieveAllAppointmentsByContact(int contactSearchId, ObservableList<Appointment> appointmentList) throws SQLException {
+        appointmentList.clear();
+        String sql = "SELECT * FROM APPOINTMENTS WHERE Contact_ID = ?";
+        PreparedStatement ps = JDBC.makePreparedStatement(sql);
+        ps.setInt(1, contactSearchId);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             int id = rs.getInt("Appointment_ID");

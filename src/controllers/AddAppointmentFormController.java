@@ -44,7 +44,7 @@ public class AddAppointmentFormController {
     @FXML
     private ComboBox<LocalTime> endComBox;
 
-    public LocalDateTime adjustBusinessHours(LocalTime localTime){
+    public LocalDateTime adjustToEst(LocalTime localTime){
         ZoneId estZoneId = ZoneId.of("America/New_York");
         LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime); // 8AM Local
         ZonedDateTime zonedLocalDateTime = localDateTime.atZone(ZoneId.systemDefault()); // 8AM LocalZone
@@ -67,8 +67,8 @@ public class AddAppointmentFormController {
         userComBox.setItems(userList);
         userComBox.getSelectionModel().selectFirst();
 
-        LocalDateTime openingTime = adjustBusinessHours(LocalTime.of(8,0)); // 8AM
-        LocalDateTime closingTime = adjustBusinessHours(LocalTime.of(22,0)); // 10PM
+        LocalDateTime openingTime = adjustToEst(LocalTime.of(8,0)); // 8AM
+        LocalDateTime closingTime = adjustToEst(LocalTime.of(22,0)); // 10PM
         datePicker.setValue(openingTime.toLocalDate());
 
         while(openingTime.isBefore(closingTime.plusSeconds(1))){
@@ -86,7 +86,7 @@ public class AddAppointmentFormController {
         Customer customer = cusComBox.getValue();
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
 
-        AppointmentsQuery.retrieveAllAppointmentsById(customer.getId(), appointmentList);
+        AppointmentsQuery.retrieveAllAppointmentsByCustomer(customer.getId(), appointmentList);
         for(Appointment currApp : appointmentList){
             if(currApp.getStartTime().isBefore(start) && currApp.getEndTime().isAfter(start)){
                 noConflict = false;

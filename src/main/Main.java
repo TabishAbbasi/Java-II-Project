@@ -1,5 +1,6 @@
 package main;
 
+import database.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,8 +19,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        //JDBC.makeConnection();
+        JDBC.makeConnection();
         launch();
-        //JDBC.closeConnection();
+        JDBC.closeConnection();
     }
 }

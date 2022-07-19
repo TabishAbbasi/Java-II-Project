@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ContactScheduleFormController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="1600.0">
+         <children>
+            <Text layoutX="10.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Contact Schedule" />
+            <TableView fx:id="scheduleTable" layoutY="30.0" prefHeight="288.0" prefWidth="1600.0">
+               <columns>
+                  <TableColumn fx:id="appIdCol" prefWidth="125.0" text="Appointment ID" />
+                  <TableColumn fx:id="titleCol" minWidth="155.0" prefWidth="200.0" text="Title" />
+                  <TableColumn fx:id="typeCol" prefWidth="150.0" text="Type" />
+                  <TableColumn fx:id="descCol" prefWidth="575.0" text="Description" />
+                  <TableColumn fx:id="dateCol" prefWidth="150.0" text="Date" />
+                  <TableColumn fx:id="startCol" prefWidth="150.0" text="Start Time" />
+                  <TableColumn fx:id="endCol" prefWidth="150.0" text="End Time" />
+                  <TableColumn fx:id="cusIdCol" prefWidth="100.0" text="Customer ID" />
+               </columns>
+            </TableView>
+            <Button layoutX="1500.0" layoutY="325.0" mnemonicParsing="false" onAction="#toAppointmentForm" text="Appointments" />
+            <Text layoutX="10.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Contact ID :" />
+            <ComboBox fx:id="conComBox" layoutX="95.0" layoutY="325.0" onAction="#updateTable" prefWidth="150.0" />
+            <Text fx:id="currentUserText" layoutX="10.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Current User" />
+         </children>
+      </Pane>
+   </children>
+</VBox>

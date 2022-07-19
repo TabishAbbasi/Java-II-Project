@@ -50,14 +50,6 @@ public class JDBC {
 
         return ps;
     }
-//    public static PreparedStatement getPreparedStatement() throws SQLException {
-//        if (preparedStatement != null) {
-//            return preparedStatement;
-//        } else {
-//            System.out.println("Null reference to Prepared Statement");
-//        }
-//        return null;
-//    }
 
     public static Connection getConnection() {
         return connection;

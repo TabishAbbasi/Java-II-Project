@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+      xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AppointmentReportFormController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="175.0" layoutY="80.0" text="Month :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="monthComBox" layoutX="235.0" layoutY="80.0" prefWidth="150.0" onAction="#selectionChanged" />
+            <Label layoutX="187.0" layoutY="130.0" text="Type :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="typeComBox" layoutX="235.0" layoutY="130.0" prefWidth="150.0" onAction="#selectionChanged"/>
+            <Label layoutX="120.0" layoutY="175.0" text="Appointments :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="numOfApp" layoutX="235.0" layoutY="175.0" text="numOfApp">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="264.0" layoutY="340.0" mnemonicParsing="false" text="Appointments" onAction="#toAppointmentForm"/>
+         </children>
+      </Pane>
+   </children>
+</VBox>
