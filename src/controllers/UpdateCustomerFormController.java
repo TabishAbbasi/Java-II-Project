@@ -22,6 +22,9 @@ import model.Division;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * This class handles all operations in the update customer form.
+ */
 public class UpdateCustomerFormController {
     private ObservableList<Country> countryList = FXCollections.observableArrayList();
     private ObservableList<Division> divisionList = FXCollections.observableArrayList();
@@ -40,6 +43,12 @@ public class UpdateCustomerFormController {
     @FXML
     private ComboBox<Division> divisionCombo;
 
+    /**
+     * Adds all the received customer's information into the form.
+     *
+     * @param customer the received customer
+     * @throws SQLException
+     */
     public void receiveCustomer(Customer customer) throws SQLException {
         idTextBox.setText(String.valueOf(customer.getId()));
         nameTextBox.setText(customer.getName());
@@ -59,12 +68,26 @@ public class UpdateCustomerFormController {
         divisionCombo.setValue(division);
     }
 
+    /**
+     * Updates the combo box to the related country's divisions.
+     *
+     * @param event a value being set for the country combo box
+     * @throws SQLException
+     */
     public void setDivisionComboBox(ActionEvent event) throws SQLException {
         DivisionsQuery.retrieveDivisionsByCountryId(countryCombo.getValue().getId(), divisionList);
         divisionCombo.setItems(divisionList);
         divisionCombo.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Attempts to update the customer's information in the database. Produces and error alert
+     * if any fields are empty.
+     *
+     * @param event the save button being pressed
+     * @throws IOException
+     * @throws SQLException
+     */
     public void onSave(ActionEvent event) throws IOException, SQLException {
         if(nameTextBox.getText().isBlank() || addTextBox.getText().isBlank() ||
                 postTextBox.getText().isBlank() || phoneTextBox.getText().isBlank()){
@@ -80,9 +103,14 @@ public class UpdateCustomerFormController {
             CustomerQuery.updateCustomer(customerId, name, address, postalCode, phone, division.getId());
             toCustomerForm(event);
         }
-
     }
 
+    /**
+     * Changes the current stage's scene to the customer form.
+     *
+     * @param event the cancel button being clicked
+     * @throws IOException
+     */
     public void toCustomerForm(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/CustomerForm.fxml"))), 1600, 400));

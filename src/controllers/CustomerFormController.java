@@ -16,11 +16,15 @@ import javafx.stage.Stage;
 import main.Main;
 import model.AlertGenerator;
 import model.Customer;
+import model.ObtainListSize;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * This class handles all operations on the customer form.
+ */
 public class CustomerFormController {
     private Stage stage;
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
@@ -43,6 +47,14 @@ public class CustomerFormController {
     @FXML
     private Label numOfCustomers;
 
+    /**
+     * Displays the customers from the database into the table.
+     * <p>
+     *     A lambda expression is used to help display the number of customers in the database.
+     * </p>
+     *
+     * @throws SQLException
+     */
     @FXML
     public void initialize() throws SQLException {
         currentUserText.setText("User: " + UsersQuery.getUserName());
@@ -56,9 +68,16 @@ public class CustomerFormController {
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         divIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
 
-        numOfCustomers.setText(String.valueOf(customerList.size()));
+        ObtainListSize obtainListSize = list -> String.valueOf(list.size()); //Lambda
+        numOfCustomers.setText(String.valueOf(obtainListSize.sizeOf(customerList)));
     }
 
+    /**
+     * Changes the current stage's scene to the appointment form.
+     *
+     * @param event the appointments button being clicked
+     * @throws IOException
+     */
     public void toAppointmentForm(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AppointmentForm.fxml"))), 1600, 400));
@@ -66,6 +85,13 @@ public class CustomerFormController {
         stage.show();
     }
 
+
+    /**
+     * Changes the current stage's scene to the add customer form.
+     *
+     * @param event the add button being clicked
+     * @throws IOException
+     */
     public void addCustomer(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AddCustomerForm.fxml"))), 600, 400));
@@ -73,6 +99,13 @@ public class CustomerFormController {
         stage.show();
     }
 
+    /**
+     * Changes the current stage's scene to the update customer form and sends the selected customer
+     * to the form's controller.
+     *
+     * @param event the update button being clicked
+     * @throws IOException
+     */
     public void updateCustomer(ActionEvent event) throws IOException, SQLException {
         if(!customerTable.getSelectionModel().isEmpty()){
             FXMLLoader loader = new FXMLLoader();
@@ -92,6 +125,11 @@ public class CustomerFormController {
         }
     }
 
+    /**
+     * Deletes the currently selected customer from the database.
+     *
+     * @throws SQLException
+     */
     public void deleteCustomer() throws SQLException {
         if(!customerTable.getSelectionModel().isEmpty()){
             Customer removeCustomer = customerTable.getSelectionModel().getSelectedItem();
@@ -111,6 +149,11 @@ public class CustomerFormController {
 
     }
 
+    /**
+     * Exits the application.
+     *
+     * @param event the exit button being clicked
+     */
     public void exitApplication(ActionEvent event){
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();

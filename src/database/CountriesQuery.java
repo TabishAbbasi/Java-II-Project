@@ -7,7 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class handles all queries to the Countries table in the database.
+ */
 public class CountriesQuery {
+
+    /**
+     * Retrieves all countries from the database and stores them in a list.
+     *
+     * @param countryList the list to store all the countries
+     * @throws SQLException
+     */
     public static void retrieveAllCountries(ObservableList<Country> countryList) throws SQLException {
         countryList.clear();
         String sql = "SELECT * FROM COUNTRIES";
@@ -20,6 +30,13 @@ public class CountriesQuery {
         }
     }
 
+    /**
+     * Retrieves a single country matching the ID.
+     *
+     * @param countryId the country's ID
+     * @return the country with the matching ID
+     * @throws SQLException
+     */
     public static Country retrieveCountryObject(int countryId) throws SQLException {
         String sql = "SELECT * FROM COUNTRIES WHERE Country_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);

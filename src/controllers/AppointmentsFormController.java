@@ -28,6 +28,9 @@ import java.time.LocalTime;
 import java.time.temporal.IsoFields;
 import java.util.Optional;
 
+/**
+ * This class handles all operations in the appointment form.
+ */
 public class AppointmentsFormController {
     private Stage stage;
     private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
@@ -58,6 +61,11 @@ public class AppointmentsFormController {
     @FXML
     private Text currentUserText;
 
+    /**
+     * Adds all appointments from the database into the table.
+     *
+     * @throws SQLException
+     */
     @FXML
     public void initialize() throws SQLException {
         currentUserText.setText("User: " + UsersQuery.getUserName());
@@ -77,39 +85,52 @@ public class AppointmentsFormController {
         appUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
     }
 
+    /**
+     * Displays all appointments from the database into the table.
+     *
+     * @param event the All radio button being clicked
+     * @throws SQLException
+     */
     public void showAllAppointments(ActionEvent event) throws SQLException {
         AppointmentsQuery.retrieveAllAppointments(appointmentList);
         appointmentTable.setItems(appointmentList);
     }
 
+    /**
+     * Displays all appointments from the database that begin in the current month. A lambda expression
+     * is used to filter the appointments from a list containing all the appointments.
+     *
+     * @param event the Current Month radio button being clicked
+     * @throws SQLException
+     */
     public void showMonthAppointments(ActionEvent event) throws SQLException {
         AppointmentsQuery.retrieveAllAppointments(appointmentList);
-        FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, app -> app.getDate().getMonth().equals(
-                                                                                                LocalDate.now().getMonth()));
-//        LocalDate localDate = LocalDate.now();
-//        ObservableList<Appointment> filteredAppList = FXCollections.observableArrayList();
-//        for(Appointment currApp : appointmentList){
-//            if(localDate.getMonth() == currApp.getDate().getMonth()){
-//                filteredAppList.add(currApp);
-//            }
-//        }
+        FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, app -> //Lambda
+                app.getDate().getMonth().equals(LocalDate.now().getMonth()));
         appointmentTable.setItems(filteredList);
     }
 
+    /**
+     * Displays all appointments from the database that begin in the current week. A lambda expression
+     * is used to filter the appointments from a list containing all the appointments.
+     *
+     * @param event the Current Week radio button being clicked
+     * @throws SQLException
+     */
     public void showWeekAppointments(ActionEvent event) throws SQLException {
         AppointmentsQuery.retrieveAllAppointments(appointmentList);
         int weekNumber = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR); // https://stackhowto.com/how-to-get-the-week-number-from-a-date-in-java/
-        FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, app -> weekNumber == app.getDate().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR));
-//        ObservableList<Appointment> filteredAppList = FXCollections.observableArrayList();
-//        for(Appointment currApp : appointmentList){
-//            int appWeekNumber = currApp.getDate().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
-//            if(weekNumber == appWeekNumber){
-//                filteredAppList.add(currApp);
-//            }
-//        }
+        FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, app -> //Lambda
+                weekNumber == app.getDate().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR));
         appointmentTable.setItems(filteredList);
     }
 
+    /**
+     * Changes the current stage's scene to the add appointment form.
+     *
+     * @param event the add button being clicked
+     * @throws IOException
+     */
     public void addAppointment(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AddAppointmentForm.fxml"))), 800, 500));
@@ -117,6 +138,13 @@ public class AppointmentsFormController {
         stage.show();
     }
 
+    /**
+     * Changes the current stage's scene to the update appointment form and sends the selected appointment to the
+     * forms controller.
+     *
+     * @param event the update button being clicked
+     * @throws IOException
+     */
     public void updateAppointment(ActionEvent event) throws IOException, SQLException {
         if(!appointmentTable.getSelectionModel().isEmpty()){
             FXMLLoader loader = new FXMLLoader();
@@ -136,12 +164,17 @@ public class AppointmentsFormController {
         }
     }
 
+    /**
+     * Deletes the currently selected appointment from the database.
+     *
+     * @param event
+     * @throws SQLException
+     */
     public void deleteAppointment(ActionEvent event) throws SQLException {
         if(!appointmentTable.getSelectionModel().isEmpty()){
             Appointment deleteAppointment = appointmentTable.getSelectionModel().getSelectedItem();
-            Optional<ButtonType> choice = AlertGenerator.generateConfirmAlert("Delete appointment ID: " + deleteAppointment.getId() +
-                                                                                " Title: " + deleteAppointment.getTitle() + "?");
-
+            Optional<ButtonType> choice = AlertGenerator.generateConfirmAlert(
+                    "Delete appointment ID: " + deleteAppointment.getId() + " Title: " + deleteAppointment.getTitle() + "?");
             if(choice.isPresent() && choice.get() == ButtonType.OK){
                 AppointmentsQuery.deleteAppointment(deleteAppointment.getId());
                 AppointmentsQuery.retrieveAllAppointments(appointmentList);
@@ -154,6 +187,12 @@ public class AppointmentsFormController {
         }
     }
 
+    /**
+     * Changes the current stage's scene to the contact schedule form.
+     *
+     * @param event the contact schedule button being clicked
+     * @throws IOException
+     */
     public void toContactSchedule(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/ContactScheduleForm.fxml"))), 1600, 400));
@@ -161,6 +200,12 @@ public class AppointmentsFormController {
         stage.show();
     }
 
+    /**
+     * Changes the current stage's scene to the appointment report form.
+     *
+     * @param event the appointment report button being clicked
+     * @throws IOException
+     */
     public void toAppointmentReport(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AppointmentReportForm.fxml"))), 600, 400));
@@ -168,6 +213,12 @@ public class AppointmentsFormController {
         stage.show();
     }
 
+    /**
+     * Changes the current stage's scene to the customer form.
+     *
+     * @param event the customers button being clicked
+     * @throws IOException
+     */
     public void toCustomerForm(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/CustomerForm.fxml"))), 1600, 400));

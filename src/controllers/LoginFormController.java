@@ -25,6 +25,9 @@ import java.time.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * This class handles all operations on the login form.
+ */
 public class LoginFormController {
     private Stage stage;
     @FXML
@@ -42,6 +45,10 @@ public class LoginFormController {
     @FXML
     private Label zoneLabel;
 
+    /**
+     * Displays the system's default time zone and translates the form into French if
+     * the system's default language is set to French.
+     */
     @FXML
     public void initialize(){
         zoneLabel.setText("Zone: " + ZoneId.systemDefault().getId());
@@ -58,6 +65,13 @@ public class LoginFormController {
         }
     }
 
+    /**
+     * Returns a LocalDateTime object with the time portion being the same instance in time as the
+     * entered time in EST.
+     *
+     * @param localTime the time to convert to EST
+     * @return the LocalDateTime with the same instance in time of the EST time
+     */
     public LocalDateTime adjustToEst(LocalTime localTime){
         ZoneId estZoneId = ZoneId.of("America/New_York");
         LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime); // Entered Time Local
@@ -68,6 +82,17 @@ public class LoginFormController {
         return estLocalDateTime;
     }
 
+    /**
+     * Checks to see if the currently logged-in user has any appointments within 15 minutes
+     * of logging in.
+     * <p>
+     *     If the user has an appointment, displays them in an alert, and if the user does not
+     *     have any appointments within 15 minutes, displays an alert to let the user know that
+     *     they have no upcoming appointments.
+     * </p>
+     *
+     * @throws SQLException
+     */
     public void checkForUpcomingApp() throws SQLException {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
         AppointmentsQuery.retrieveAllAppointments(appointmentList);
@@ -96,6 +121,21 @@ public class LoginFormController {
         }
     }
 
+
+    /**
+     * Makes a login request to the database using the entered username and password.
+     * <p>
+     *     Displays an error alert if:
+     *     <ul>
+     *         <li>Any of the fields are blank.</li>
+     *         <li>No matches were found for the entered username and password.</li>
+     *     </ul>
+     * </p>
+     *
+     * @param event the login button being clicked
+     * @throws SQLException
+     * @throws IOException
+     */
     public void onLogin(ActionEvent event) throws SQLException, IOException {
         if(idTextBox.getText().isBlank() || passwordTextBox.getText().isBlank()){
 
@@ -116,7 +156,6 @@ public class LoginFormController {
                 stage.show();
                 checkForUpcomingApp();
             } else{
-                    //Record Invalid Login to login_activity.txt
                 if(Locale.getDefault().getLanguage().equals("fr")){
                     AlertGenerator.generateErrorAlert("Le pseudo ou mot de passe est incorect.");
                 }else {

@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.Month;
 
+/**
+ * This class handles all operations in the appointment report form.
+ */
 public class AppointmentReportFormController {
     ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
     ObservableList<Month> monthList = FXCollections.observableArrayList();
@@ -30,7 +33,12 @@ public class AppointmentReportFormController {
     @FXML
     private Label numOfApp;
 
-
+    /**
+     * Adds all months with appointments and all appointment types into their respective
+     * combo boxes and updates the number of appointments to the current selection.
+     *
+     * @throws SQLException
+     */
     @FXML
     public void initialize() throws SQLException {
         AppointmentsQuery.retrieveAllAppointments(appointmentList);
@@ -60,6 +68,9 @@ public class AppointmentReportFormController {
         numOfApp.setText(String.valueOf(matchingAppointments));
     }
 
+    /**
+     * Updates the number of appointments to the current selection.
+     */
     public void selectionChanged(){
         Month selectedMonth = monthComBox.getValue();
         String selectedType = typeComBox.getValue();
@@ -72,6 +83,12 @@ public class AppointmentReportFormController {
         numOfApp.setText(String.valueOf(matchingAppointments));
     }
 
+    /**
+     * Changes the current stage's scene to the appointment form.
+     *
+     * @param event the Appointments button being clicked
+     * @throws IOException
+     */
     public void toAppointmentForm(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AppointmentForm.fxml"))), 1600, 400));

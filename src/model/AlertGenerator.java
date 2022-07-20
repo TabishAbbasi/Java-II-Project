@@ -10,7 +10,7 @@ import java.util.Optional;
  *
  * @author Tabish Abbasi
  */
-public class AlertGenerator {
+public abstract class AlertGenerator {
     /**
      * Produces an error alert.
      *

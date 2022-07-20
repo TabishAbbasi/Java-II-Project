@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.*;
 
+/**
+ * This class handles all operations in the update appointment form.
+ */
 public class UpdateAppointmentFormController {
     private ObservableList<Contact> contactList = FXCollections.observableArrayList();
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
@@ -47,6 +50,13 @@ public class UpdateAppointmentFormController {
     @FXML
     private ComboBox<LocalTime> endComBox;
 
+    /**
+     * Returns a LocalDateTime object with the time portion being the same instance in time as the
+     * entered time in EST.
+     *
+     * @param localTime the time to convert to EST
+     * @return the LocalDateTime with the same instance in time of the EST time
+     */
     public LocalDateTime adjustToEst(LocalTime localTime){
         ZoneId estZoneId = ZoneId.of("America/New_York");
         LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime); // 8AM Local
@@ -57,6 +67,11 @@ public class UpdateAppointmentFormController {
         return estLocalDateTime;
     }
 
+    /**
+     * Adds all received appointment information into the form.
+     *
+     * @throws SQLException
+     */
     public void receiveAppointment(Appointment appointment) throws SQLException {
         selectedAppointment = appointment;
         idTextBox.setText(String.valueOf(appointment.getId()));
@@ -68,7 +83,7 @@ public class UpdateAppointmentFormController {
 
         ContactsQuery.retrieveAllContacts(contactList);
         conComBox.setItems(contactList);
-        Contact contact = ContactsQuery.retrieveContactByName(appointment.getContact());
+        Contact contact = ContactsQuery.retrieveContactByName(appointment.getContactName());
         conComBox.setValue(contact);
 
         CustomerQuery.retrieveAllCustomers(customerList);
@@ -94,6 +109,15 @@ public class UpdateAppointmentFormController {
         endComBox.setValue(appointment.getEndTime());
     }
 
+    /**
+     * Checks to see if the selected appointment times have any conflict with the relevant customer's
+     * other appointments in the database.
+     *
+     * @param start the appointment's start time
+     * @param end the appointment's end time
+     * @return true if no conflicts are found, false otherwise
+     * @throws SQLException
+     */
     public boolean checkForOverlap(LocalTime start, LocalTime end) throws SQLException {
         boolean noConflict = true;
         Customer customer = cusComBox.getValue();
@@ -102,7 +126,8 @@ public class UpdateAppointmentFormController {
         AppointmentsQuery.retrieveAllAppointmentsByCustomer(customer.getId(), appointmentList);
         for(Appointment currApp : appointmentList){
             if(currApp.getId() != selectedAppointment.getId()){
-                if(currApp.getStartTime().isBefore(start) && currApp.getEndTime().isAfter(start)){
+                if((currApp.getStartTime().isBefore(start) || currApp.getStartTime().equals(start)) &&
+                        currApp.getEndTime().isAfter(start)){
                     noConflict = false;
                     break;
                 }
@@ -122,6 +147,22 @@ public class UpdateAppointmentFormController {
         return noConflict;
     }
 
+    /**
+     * Attempts the update the appointment in the database.
+     * <p>
+     *     Produces and error alert if:
+     *     <ul>
+     *         <li>Any of the text fields are left empty.</li>
+     *         <li>The start time is the same as the end time.</li>
+     *         <li>The start time is after the end time</li>
+     *         <li>There are any conflicts with the customer's other appointments.</li>
+     *     </ul>
+     * </p>
+     *
+     * @param event the save button being clicked
+     * @throws SQLException
+     * @throws IOException
+     */
     public void onSave(ActionEvent event) throws SQLException, IOException {
         if(titleTextBox.getText().isBlank() || locTextBox.getText().isBlank() ||
                 typeTextBox.getText().isBlank() || descTextArea.getText().isBlank()){
@@ -159,6 +200,12 @@ public class UpdateAppointmentFormController {
         }
     }
 
+    /**
+     * Changes the current stage's scene to the appointment form.
+     *
+     * @param event the cancel button being clicked
+     * @throws IOException
+     */
     public void toAppointmentForm(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/AppointmentForm.fxml"))), 1600, 400));

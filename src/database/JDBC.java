@@ -5,7 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class JDBC {
+/**
+ * This class is responsible for establishing a connection with the database,
+ * closing that connection, as well as producing prepared statements for
+ * interacting with the database.
+ */
+public abstract class JDBC {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
     private static final String location = "//localhost/";
@@ -16,6 +21,9 @@ public class JDBC {
     private static String password = "Passw0rd!"; // Password
     private static Connection connection = null;  // Connection Interface
 
+    /**
+     * Establishes a connection with the database.
+     */
     public static void makeConnection() {
 
         try {
@@ -31,6 +39,9 @@ public class JDBC {
         }
     }
 
+    /**
+     * Closes the connection with the database.
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -40,6 +51,13 @@ public class JDBC {
         }
     }
 
+    /**
+     * Prepares and returns a PreparedStatement.
+     *
+     * @param sqlStatement the sql command for interacting with the database
+     * @return the PreparedStatement
+     * @throws SQLException
+     */
     public static PreparedStatement makePreparedStatement(String sqlStatement) throws SQLException {
         PreparedStatement ps = null;
         if (connection != null){
@@ -49,9 +67,5 @@ public class JDBC {
         }
 
         return ps;
-    }
-
-    public static Connection getConnection() {
-        return connection;
     }
 }

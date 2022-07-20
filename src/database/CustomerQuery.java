@@ -9,7 +9,17 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * This class handles all queries to the Customers table in the database.
+ */
 public abstract class CustomerQuery {
+
+    /**
+     * Retrieves all the customers in the database and stores them in a list.
+     *
+     * @param customerList the list to store the customers
+     * @throws SQLException
+     */
     public static void retrieveAllCustomers(ObservableList<Customer> customerList) throws SQLException {
         customerList.clear();
         String sql = "SELECT * FROM CUSTOMERS";
@@ -27,6 +37,13 @@ public abstract class CustomerQuery {
 
     }
 
+    /**
+     * Retrieves a single customer with the matching ID.
+     *
+     * @param customerId the customer's ID
+     * @return the customer with the matching ID
+     * @throws SQLException
+     */
     public static Customer retrieveCustomerById(int customerId) throws SQLException {
         String sql = "SELECT * FROM CUSTOMERS WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.makePreparedStatement(sql);
@@ -43,6 +60,16 @@ public abstract class CustomerQuery {
         return customer;
     }
 
+    /**
+     * Inserts a customer into the database.
+     *
+     * @param name the customer's name
+     * @param address the customer's address
+     * @param postalCode the customer's postal code
+     * @param phone the customer's phone number
+     * @param divisionId the customer's province/division's ID
+     * @throws SQLException
+     */
     public static void insertCustomer(String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
         String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Create_Date," +
                 " Created_By, Last_Update, Last_Updated_By, Division_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -60,6 +87,17 @@ public abstract class CustomerQuery {
         System.out.println(rowsAffected + " rows added to customers table.");
     }
 
+    /**
+     * Updates the customer in the database with the matching ID.
+     *
+     * @param customerId the customer's ID
+     * @param name the customer's name
+     * @param address the customer's address
+     * @param postalCode the customer's postal code
+     * @param phone the customer's phone number
+     * @param divisionId the customer's province/division's ID
+     * @throws SQLException
+     */
     public static void updateCustomer(int customerId, String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
         String sql = "UPDATE CUSTOMERS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, " +
                     "Last_Update = ?, Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?";
@@ -76,6 +114,12 @@ public abstract class CustomerQuery {
         System.out.println(rowsAffected + " rows updated.");
     }
 
+    /**
+     * Deletes a customer from the database with the matching ID.
+     *
+     * @param customerId the customer's ID
+     * @throws SQLException
+     */
     public static void deleteCustomer(int customerId) throws SQLException {
         AppointmentsQuery.deleteAllAppointmentsById(customerId);
         String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = ?";

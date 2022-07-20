@@ -21,6 +21,9 @@ import model.Division;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * This class handles all operations on the add customer form.
+ */
 public class AddCustomerFormController {
     private ObservableList<Country> countryList = FXCollections.observableArrayList();
     private ObservableList<Division> divisionList = FXCollections.observableArrayList();
@@ -37,6 +40,11 @@ public class AddCustomerFormController {
     @FXML
     private ComboBox<Division> divisionCombo;
 
+    /**
+     * Adds all the countries and related division into the combo boxes.
+     *
+     * @throws SQLException
+     */
     @FXML
     public void initialize() throws SQLException {
         CountriesQuery.retrieveAllCountries(countryList);
@@ -47,12 +55,26 @@ public class AddCustomerFormController {
         divisionCombo.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Updates the combo box to the related country's divisions.
+     *
+     * @param event a value being set for the country combo box
+     * @throws SQLException
+     */
     public void setDivisionComboBox(ActionEvent event) throws SQLException {
         DivisionsQuery.retrieveDivisionsByCountryId(countryCombo.getValue().getId(), divisionList);
         divisionCombo.setItems(divisionList);
         divisionCombo.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Attempts to save the customer's information into the database. Produces and error alert
+     * if any fields are empty.
+     *
+     * @param event the save button being pressed
+     * @throws IOException
+     * @throws SQLException
+     */
     public void onSave(ActionEvent event) throws IOException, SQLException {
         if(nameTextBox.getText().isBlank() || addTextBox.getText().isBlank() ||
             postTextBox.getText().isBlank() || phoneTextBox.getText().isBlank()){
@@ -70,6 +92,12 @@ public class AddCustomerFormController {
 
     }
 
+    /**
+     * Changes the current stage's scene to the customer form.
+     *
+     * @param event the cancel button being clicked
+     * @throws IOException
+     */
     public void toCustomerForm(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/CustomerForm.fxml"))), 1600, 400));
