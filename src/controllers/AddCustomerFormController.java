@@ -23,6 +23,8 @@ import java.sql.SQLException;
 
 /**
  * This class handles all operations on the add customer form.
+ *
+ * @author Tabish Abbasi
  */
 public class AddCustomerFormController {
     private ObservableList<Country> countryList = FXCollections.observableArrayList();

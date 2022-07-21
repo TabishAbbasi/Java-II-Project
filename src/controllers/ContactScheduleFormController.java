@@ -27,6 +27,8 @@ import java.util.Date;
 
 /**
  * This class handles all operations in the contact schedule form.
+ *
+ * @author Tabish Abbasi
  */
 public class ContactScheduleFormController {
     private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();

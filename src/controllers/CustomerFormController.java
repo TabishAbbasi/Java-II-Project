@@ -24,6 +24,8 @@ import java.util.Optional;
 
 /**
  * This class handles all operations on the customer form.
+ *
+ * @author Tabish Abbasi
  */
 public class CustomerFormController {
     private Stage stage;

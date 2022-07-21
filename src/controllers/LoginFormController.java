@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
 
 /**
  * This class handles all operations on the login form.
+ *
+ * @author Tabish Abbasi
  */
 public class LoginFormController {
     private Stage stage;

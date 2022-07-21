@@ -21,6 +21,8 @@ import java.time.*;
 
 /**
  * This class handles all operations in the update appointment form.
+ *
+ * @author Tabish Abbasi
  */
 public class UpdateAppointmentFormController {
     private ObservableList<Contact> contactList = FXCollections.observableArrayList();

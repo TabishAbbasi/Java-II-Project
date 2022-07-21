@@ -2,6 +2,8 @@ package model;
 
 /**
  * This class produces a Division object to store division information.
+ *
+ * @author Tabish Abbasi
  */
 public class Division {
     private int id;

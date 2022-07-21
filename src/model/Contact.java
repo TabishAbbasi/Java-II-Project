@@ -2,6 +2,8 @@ package model;
 
 /**
  * This class produces a Contact object to store contact information.
+ *
+ * @author Tabish Abbasi
  */
 public class Contact {
     private int id;

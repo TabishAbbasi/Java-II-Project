@@ -2,6 +2,8 @@ package model;
 
 /**
  * This class produces a User object to store user information.
+ *
+ * @author Tabish Abbasi
  */
 public class User {
     private int id;

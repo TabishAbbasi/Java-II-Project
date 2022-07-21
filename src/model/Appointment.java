@@ -5,6 +5,8 @@ import java.time.LocalTime;
 
 /**
  * This class produces an Appointment object to store appointment information.
+ *
+ * @author Tabish Abbasi
  */
 public class Appointment {
     private int id;

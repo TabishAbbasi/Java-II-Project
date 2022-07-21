@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 
 /**
  * This class handles all queries to the Customers table in the database.
+ *
+ * @author Tabish Abbasi
  */
 public abstract class CustomerQuery {
 

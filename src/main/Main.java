@@ -8,6 +8,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The javadoc can be found in the javadoc folder provided in the
+ * zip.
+ *
+ * @author Tabish Abbasi
+ */
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {

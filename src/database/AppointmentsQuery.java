@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 
 /**
  * This class handles any queries to the Appointments table in the database.
+ *
+ * @author Tabish Abbasi
  */
 public class AppointmentsQuery {
 

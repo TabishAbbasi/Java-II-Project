@@ -20,6 +20,8 @@ import java.time.Month;
 
 /**
  * This class handles all operations in the appointment report form.
+ *
+ * @author Tabish Abbasi
  */
 public class AppointmentReportFormController {
     ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();

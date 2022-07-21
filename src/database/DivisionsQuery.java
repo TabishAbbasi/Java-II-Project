@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 /**
  * This class handles all queries to the First_Level_Division table in the database.
+ *
+ * @author Tabish Abbasi
  */
 public class DivisionsQuery {
 

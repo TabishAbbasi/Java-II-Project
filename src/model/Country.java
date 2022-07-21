@@ -2,6 +2,8 @@ package model;
 
 /**
  * This class produces a Country object to store country information.
+ *
+ * @author Tabish Abbasi
  */
 public class Country {
     private int id;

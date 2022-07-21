@@ -2,6 +2,8 @@ package model;
 
 /**
  * This class produces a Customer object to store customer information.
+ *
+ * @author Tabish Abbasi
  */
 public class Customer {
     private int id;

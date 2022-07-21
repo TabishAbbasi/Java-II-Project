@@ -15,6 +15,8 @@ import java.time.ZoneId;
 
 /**
  * This class handles any queries to the User table in the database.
+ *
+ * @author Tabish Abbasi
  */
 public abstract class UsersQuery {
     private static String loggedInUserName;

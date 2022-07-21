@@ -24,6 +24,8 @@ import java.sql.SQLException;
 
 /**
  * This class handles all operations in the update customer form.
+ *
+ * @author Tabish Abbasi
  */
 public class UpdateCustomerFormController {
     private ObservableList<Country> countryList = FXCollections.observableArrayList();

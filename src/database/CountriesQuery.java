@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 /**
  * This class handles all queries to the Countries table in the database.
+ *
+ * @author Tabish Abbasi
  */
 public class CountriesQuery {
 

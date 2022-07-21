@@ -30,6 +30,8 @@ import java.util.Optional;
 
 /**
  * This class handles all operations in the appointment form.
+ *
+ * @author Tabish Abbasi
  */
 public class AppointmentsFormController {
     private Stage stage;
@@ -140,7 +142,7 @@ public class AppointmentsFormController {
 
     /**
      * Changes the current stage's scene to the update appointment form and sends the selected appointment to the
-     * forms controller.
+     * form's controller.
      *
      * @param event the update button being clicked
      * @throws IOException
