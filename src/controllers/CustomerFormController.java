@@ -75,6 +75,19 @@ public class CustomerFormController {
     }
 
     /**
+     * Changes the current stage's scene to the customer report form.
+     *
+     * @param event the Customer Report button being clicked
+     * @throws IOException
+     */
+    public void toCustomerReportForm(ActionEvent event) throws IOException {
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(FXMLLoader.load((Main.class.getResource("/views/CustomerReportForm.fxml"))), 600, 400));
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    /**
      * Changes the current stage's scene to the appointment form.
      *
      * @param event the appointments button being clicked

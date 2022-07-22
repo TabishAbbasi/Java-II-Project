@@ -128,20 +128,22 @@ public class UpdateAppointmentFormController {
         AppointmentsQuery.retrieveAllAppointmentsByCustomer(customer.getId(), appointmentList);
         for(Appointment currApp : appointmentList){
             if(currApp.getId() != selectedAppointment.getId()){
-                if((currApp.getStartTime().isBefore(start) || currApp.getStartTime().equals(start)) &&
-                        currApp.getEndTime().isAfter(start)){
-                    noConflict = false;
-                    break;
-                }
+                if(currApp.getDate().equals(datePicker.getValue())){
+                    if((currApp.getStartTime().isBefore(start) || currApp.getStartTime().equals(start)) &&
+                            currApp.getEndTime().isAfter(start)){
+                        noConflict = false;
+                        break;
+                    }
 
-                if(currApp.getStartTime().isBefore(end) && currApp.getEndTime().isAfter(end)){
-                    noConflict = false;
-                    break;
-                }
+                    if(currApp.getStartTime().isBefore(end) && currApp.getEndTime().isAfter(end)){
+                        noConflict = false;
+                        break;
+                    }
 
-                if(currApp.getStartTime().isAfter(start) && currApp.getEndTime().isBefore(end)){
-                    noConflict = false;
-                    break;
+                    if(currApp.getStartTime().isAfter(start) && currApp.getEndTime().isBefore(end)){
+                        noConflict = false;
+                        break;
+                    }
                 }
             }
         }

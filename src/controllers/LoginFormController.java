@@ -4,6 +4,7 @@ import database.AppointmentsQuery;
 import database.UsersQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,25 +69,9 @@ public class LoginFormController {
     }
 
     /**
-     * Returns a LocalDateTime object with the time portion being the same instance in time as the
-     * entered time in EST.
-     *
-     * @param localTime the time to convert to EST
-     * @return the LocalDateTime with the same instance in time of the EST time
-     */
-    public LocalDateTime adjustToEst(LocalTime localTime){
-        ZoneId estZoneId = ZoneId.of("America/New_York");
-        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime); // Entered Time Local
-        ZonedDateTime zonedLocalDateTime = localDateTime.atZone(ZoneId.systemDefault()); // Entered Time LocalZone
-
-        ZonedDateTime estZonedDateTime = zonedLocalDateTime.withZoneSameInstant(estZoneId); // Entered Time EST Zone
-        LocalDateTime estLocalDateTime = estZonedDateTime.toLocalDateTime(); // Entered Time EST Local
-        return estLocalDateTime;
-    }
-
-    /**
      * Checks to see if the currently logged-in user has any appointments within 15 minutes
-     * of logging in.
+     * of logging in. A lambda expression is used to filter the appointments from a list
+     * containing all the appointments.
      * <p>
      *     If the user has an appointment, displays them in an alert, and if the user does not
      *     have any appointments within 15 minutes, displays an alert to let the user know that
@@ -99,22 +84,22 @@ public class LoginFormController {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
         AppointmentsQuery.retrieveAllAppointments(appointmentList);
 
-        LocalTime loginTime = LocalTime.from(adjustToEst(LocalTime.now()));
+        User user = UsersQuery.retrieveUserByName(UsersQuery.getUserName());
+        FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, app -> // Lambda
+                app.getUserId() == user.getId());
+
+        LocalTime loginTime = LocalTime.now();
         LocalTime loginTimePlusTime = loginTime.plusMinutes(15);
 
-        User user = UsersQuery.retrieveUserByName(UsersQuery.getUserName());
         boolean noUpcomingApp = true;
-
-        for(Appointment currApp : appointmentList){
-            if(currApp.getUserId() == user.getId()){
-                if(loginTime.isBefore(currApp.getStartTime()) && loginTimePlusTime.isAfter(currApp.getStartTime())){
-                    AlertGenerator.generateInfoAlert("Appoinment: \nID: " + currApp.getId() +
-                            "\nDate: " + currApp.getDate() +
-                            "\nTime: " + currApp.getStartTime() +
-                            "\nIs starting within 15 minutes.");
-                    noUpcomingApp = false;
-                    break;
-                }
+        for(Appointment currApp : filteredList){
+            if(loginTime.isBefore(currApp.getStartTime()) && loginTimePlusTime.isAfter(currApp.getStartTime())){
+                AlertGenerator.generateInfoAlert("Appoinment: \nID: " + currApp.getId() +
+                        "\nDate: " + currApp.getDate() +
+                        "\nTime: " + currApp.getStartTime() +
+                        "\nIs starting within 15 minutes.");
+                noUpcomingApp = false;
+                break;
             }
         }
 

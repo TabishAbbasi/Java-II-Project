@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+      xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerReportFormController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="165.0" layoutY="80.0" text="Country :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="countryComBox" layoutX="235.0" layoutY="80.0" onAction="#countryChanged" prefWidth="150.0" />
+            <Label layoutX="165.0" layoutY="130.0" text="Division :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="divComBox" layoutX="235.0" layoutY="130.0" onAction="#divisionChanged" prefWidth="150.0" />
+            <Label layoutX="145.0" layoutY="175.0" text="Customers : ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="numOfCustomers" layoutX="235.0" layoutY="175.0" text="numberOfCustomers">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="264.0" layoutY="340.0" mnemonicParsing="false" onAction="#toCustomerForm" text="Customers" />
+         </children>
+      </Pane>
+   </children>
+</VBox>

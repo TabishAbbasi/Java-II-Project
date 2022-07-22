@@ -13,12 +13,7 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="1600.0">
          <children>
-            <Text layoutX="10.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Customers:" />
-            <Label fx:id="numOfCustomers" layoutX="100.0" layoutY="1.0" text="numOfCustomers">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
+            <Text layoutX="10.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Customers :" />
             <TableView fx:id="customerTable" layoutY="30.0" prefHeight="288.0" prefWidth="1600.0">
                <columns>
                   <TableColumn fx:id="custIdCol" prefWidth="160.0" text="ID" />
@@ -35,6 +30,12 @@
             <Button layoutX="1540.0" layoutY="325.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Delete" />
             <Button layoutX="1555.0" layoutY="365.0" mnemonicParsing="false" onAction="#exitApplication" text="Exit" />
             <Text fx:id="currentUserText" layoutX="10.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Current User" />
+            <Button layoutX="10.0" layoutY="325.0" mnemonicParsing="false" onAction="#toCustomerReportForm" text="Customer Report" />
+            <Label fx:id="numOfCustomers" layoutX="100.0" layoutY="3.0" text="numOfCustomers">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

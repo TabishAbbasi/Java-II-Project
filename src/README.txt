@@ -17,5 +17,5 @@ added, modified, and deleted. A report of the number of appointments based on mo
 clicking the Appointment Report button as well as a schedule of the contancts by clicking the Contact Schedule
 button.
 
-Additional Report: In the customer table view, the number of customers currently in the database is displayed above
-the table.
+Additional Report: In the CustomerForm there is a button that sends you to a report form that displays the number of customers
+based on country and division.
