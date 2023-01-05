@@ -142,7 +142,7 @@ public class LoginFormController {
                 stage.setResizable(false);
                 stage.show();
                 checkForUpcomingApp();
-            } else{
+           } else{
                 if(Locale.getDefault().getLanguage().equals("fr")){
                     AlertGenerator.generateErrorAlert("Le pseudo ou mot de passe est incorect.");
                 }else {

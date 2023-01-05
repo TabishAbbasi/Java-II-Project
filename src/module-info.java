@@ -1,4 +1,4 @@
-module C195Project {
+module Java.II.Project {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
