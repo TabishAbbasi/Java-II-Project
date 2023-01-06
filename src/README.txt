@@ -9,7 +9,9 @@ JDK: 17.0.3.1
 JavaFX: JavaFX-SDK-18.0.1
 MySQLConnector: mysql-connector-java-8.0.25
 
+DISCLAIMER: *This program utilized MySQL WorkBench, and will not function properly without it.*
 Directions:
+
 	Upon lauching the appliction, a login screen will be seen. After entering the proper login information,
 a table with the current list of customers can be viewed. From here, customers can be added, modified, and deleted.
 Pressing the Appointment button will show a table with all current appointments. From here, appointments acan be
