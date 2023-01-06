@@ -1,5 +1,8 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -14,6 +17,7 @@ public class Appointment {
     private String description;
     private String location;
     private String contactName;
+    private SimpleStringProperty contactNameSSP;
     private String type;
     private LocalDate date;
     private LocalTime startTime;
@@ -42,6 +46,7 @@ public class Appointment {
         this.description = description;
         this.location = location;
         this.contactName = contactName;
+        this.contactNameSSP = new SimpleStringProperty(contactName);
         this.type = type;
         this.date = date;
         this.startTime = startTime;
@@ -246,5 +251,9 @@ public class Appointment {
      */
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public StringProperty contactNameProperty(){
+        return contactNameSSP;
     }
 }

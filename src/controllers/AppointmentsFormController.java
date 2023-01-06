@@ -78,7 +78,7 @@ public class AppointmentsFormController {
         appTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         appDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         appLocCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-        appConCol.setCellValueFactory(new PropertyValueFactory<>("contact")); // Can not retrieve contact ¯\_( ͡°͜ʖ ͡°)_/¯d
+        appConCol.setCellValueFactory(cellData -> cellData.getValue().contactNameProperty()); // Wasn't working using PropertyValueFactory, but this way is the better way.
         appTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         appDateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         appStartCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
